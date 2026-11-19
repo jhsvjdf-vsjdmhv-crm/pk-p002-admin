@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PK-P002 Admin Management System (Copy)</title>
+<style>
+:root{--bg:#fff;--page:#fff;--text:#333;--muted:#555;--line:#e4e7ed;--blue:#1a73e8;--red:#c0282d;--head:#f5f6f8;--card:#fff;--sel:#1a73e8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#fff}}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:14px}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html,body{overflow-x:hidden}.wrap{width:1366px;min-width:1366px;transform-origin:0 0}
+header{height:51px;display:flex;align-items:center;justify-content:space-between;padding:0 12px 0 14px;box-shadow:0 1px 4px rgba(0,0,0,.15);background:#fff}
+.logo{display:flex;align-items:center;gap:6px;font-size:16px}
+.logo i{width:19px;height:19px;border:1.5px solid #222;border-radius:50%;display:inline-block;font-style:normal;font-size:11px;text-align:center;line-height:16px}
+.logo em{font-size:12px;margin-left:2px;font-style:italic}.logo small{font-size:7px;color:#666;margin-left:6px}
+.user{display:flex;align-items:center;gap:10px;font-size:14px}
+.av{width:23px;height:23px;border-radius:50%;background:#111;display:inline-block;position:relative}
+.av:before{content:"";position:absolute;left:8px;top:5px;width:7px;height:7px;border-radius:50%;background:#fff}
+.av:after{content:"";position:absolute;left:5px;top:13px;width:13px;height:7px;border-radius:7px 7px 0 0;background:#fff}
+.globe{width:13px;height:13px;border:2px solid #1a73e8;border-radius:50%;margin-left:14px}
+.tabs{display:flex;align-items:flex-end;justify-content:space-between;margin:59px 0 0 20px;height:38px;border-bottom:1px solid var(--line)}
+.tabs nav{display:flex;height:100%}
+.tabs nav a{font-size:15px;padding:0 14px;display:flex;align-items:center;height:100%;margin-right:20px;color:#333;margin-top:0;transform:translateY(-4px)}
+.tabs nav a.on{color:#1a56c4;border-bottom:2px solid #1a73e8;font-weight:500;padding:0 14px 0 14px;margin-left:0;transform:none;padding-bottom:4px;height:100%}
+.btns{display:flex;gap:10px;transform:translateY(-11px)}
+.btn{background:#1a73e8;color:#fff;border:0;border-radius:3px;height:32px;padding:0 15px;font-size:12px;font-family:inherit;cursor:pointer}
+.btn.back{background:#fff;color:#333;border:1px solid #ccc;width:60px;padding:0;border-radius:3px 0 0 3px;font-size:13px}
+.card{margin:16px 0 0 20px;border:1px solid var(--line);border-right:0}
+.card h3{margin:0;font-weight:400;font-style:italic;font-size:15px;padding:0 23px;height:46px;line-height:44px;background:#f5f6f8;border-bottom:1px solid var(--line)}
+.grid{display:grid;grid-template-columns:457px 455px 1fr;padding:15px 23px 0;position:relative;height:345px}
+.grid div{height:39.5px;display:flex;align-items:center;font-size:14px;white-space:nowrap}
+.grid b{font-weight:700;font-size:14px}.grid .l{margin-right:22px}.grid .r{margin-left:8px}
+.red{color:var(--red)}.big{font-size:20px;font-weight:700;color:#c0141a;margin-left:12px}
+.grid .docs{position:absolute;right:23px;top:12px;width:168px;height:auto;display:flex;flex-direction:column;align-items:stretch;gap:8px;white-space:normal}
+.grid .frame{height:auto;display:block;border:1px solid #333;border-radius:9px;background:#fff;overflow:hidden;white-space:normal}
+.frame .pic{display:block;margin:4px;height:74px;background:#eef0f3;border-radius:2px;overflow:hidden}
+.frame.card .pic{height:62px;background:#dcecf7}
+.frame .pic svg{width:100%;height:100%;display:block}
+.frame .cap{display:block;border-top:1px solid #333;text-align:center;font-size:9.5px;line-height:12px;padding:4px 3px;color:#111;white-space:normal;letter-spacing:-.1px}
+.frame .cap b{font-weight:700}
+.rec{margin:19px 0 0 20px;border:1px solid var(--line);border-right:0;position:relative}
+.rec h3{margin:0;padding:0 15px;height:52px;display:flex;align-items:center;font-weight:400}
+.rec h3 span{background:#1a73e8;color:#fff;font-size:14px;padding:2px 2px;line-height:19px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:#f5f6f8;font-weight:700;height:40px;border:1px solid var(--line);border-bottom:0;font-size:12.5px;color:#222}
+td{height:40px;text-align:center;border:1px solid var(--line);color:#444}
+tr:last-child td{border-bottom:0}
+th:first-child,td:first-child{border-left:0}th:last-child,td:last-child{border-right:0}
+.wm{position:absolute;right:38px;top:158px;color:#c9c9c9;font-size:17px;white-space:nowrap;pointer-events:none}
+.pg{position:absolute;right:3px;top:166px;display:flex;align-items:center;gap:10px;font-size:13px;color:#555}
+.pg span.b{width:30px;height:30px;border:1px solid #ccc;border-radius:3px;display:flex;align-items:center;justify-content:center;color:#aaa;background:#fff}
+.pg span.cur{border-color:#1a73e8;color:#1a73e8}
+.pg span.sz{width:86px;justify-content:flex-start;padding-left:10px;color:#444;margin-left:8px}
+.copy{background:#2e9e4f;color:#fff;border:0;border-radius:4px;height:30px;padding:0 14px;font-size:13px;font-family:inherit;cursor:pointer}.copy:hover{background:#278a43}.copy.done{background:#1f7a39}
+</style></head><body>
+<div class="wrap">
+<header>
+ <div class="logo"><i>¥</i>PK-P002 <em>Admin</em> Management System <small>VERSION: 100.29-50</small></div>
+ <div class="user"><span class="av"></span>AP-S2-21<span class="globe"></span></div>
+</header>
+<div class="tabs">
+ <nav><a class="on" href="#order">Order Information</a><a href="#msg">Customer Message</a><a href="#contact">Contact List</a></nav>
+ <div class="btns"><button class="btn">Add Collection Record</button><button class="btn">Send Partial Repayment</button><button class="btn">Send Repayment Links</button><button class="btn">Send Extension links</button><button class="btn back">Back</button></div>
+</div>
+<section class="card">
+ <h3>Customer Basic Information</h3>
+ <div class="grid">
+  <div><span class="l">Order No.:</span>no-9534973788293717-1</div>
+  <div><span class="l">Name:</span>PRAJNA G</div>
+  <div class="red"><span class="l">Regular User:</span><span style="font-size:15px">是</span></div>
+  <div><span class="l">Mobile No.:</span>8050029634</div>
+  <div><span class="l">Product Name:</span><b>MAST LOAN</b></div>
+  <div><span class="l">App Name:</span><b>MAST LOAN</b></div>
+  <div><span class="l">Loan Amount(₹s):</span>8,340&nbsp;<b class="red">(Amount Received)</b></div>
+  <div><span class="l">Application Time:</span>13-Nov-2026</div>
+  <div><span class="l">Loan Time:</span>19-Nov-2026</div>
+  <div><span class="l">Expiration Time:</span>19-Nov-2026</div>
+  <div><span class="l">Loan Amount:</span>16,900</div>
+  <div><span class="l">Days Overdue:</span>00</div>
+  <div><span class="l">Amount Due(₹s):</span>16,900</div>
+  <div><span class="l">Late Fee(₹s):</span>00</div>
+  <div><span class="l">Amount Paid(₹s):</span>00</div>
+  <div><span class="l">Customer Bank Information:</span>0162500107338401(Ifsc: KARB0000016)</div>
+  <div><span class="l">Interest and Tax:</span>00</div>
+  <div><span class="l">Remaining Due(₹s):</span></div>
+  <div><span class="l">App Link:</span><span class="big">Exceed</span></div>
+  <div><span class="l">Payment Link:</span><button type="button" class="copy" id="copyBtn" data-link="https://example.com/payment-link">Click here to Copy</button></div><div></div>
+  <div class="docs">
+   <div class="frame"><span class="pic"><svg viewBox="0 0 160 112" preserveAspectRatio="xMidYMid slice"><rect width="160" height="112" fill="#e3e6ea"/><circle cx="80" cy="46" r="20" fill="#b7bdc6"/><path d="M36 112c0-26 20-38 44-38s44 12 44 38z" fill="#b7bdc6"/></svg></span><span class="cap"><b>Identity Verification:</b> Current Live Portrait</span></div>
+   <div class="frame card"><span class="pic"><svg viewBox="0 0 180 92" preserveAspectRatio="xMidYMid slice"><rect width="180" height="92" fill="#d6e8f5"/><rect x="10" y="30" width="38" height="46" fill="#b7c4d0"/><circle cx="29" cy="46" r="8" fill="#9fadbb"/><path d="M16 76c0-12 6-18 13-18s13 6 13 18z" fill="#9fadbb"/><rect x="58" y="14" width="64" height="6" fill="#aebdcb"/><rect x="58" y="30" width="56" height="5" fill="#bccad6"/><rect x="58" y="44" width="40" height="5" fill="#bccad6"/><rect x="58" y="58" width="48" height="5" fill="#bccad6"/><rect x="132" y="30" width="38" height="38" fill="#fff"/><rect x="138" y="36" width="26" height="26" fill="#c9d3dc"/></svg></span><span class="cap"><b>Verification:</b> Permanent Account Number (PAN) Card</span></div>
+  </div>
+ </div>
+</section>
+<section class="rec">
+ <h3><span>Repayment Record</span></h3>
+<table>
+ <thead><tr><th>Repaid Time</th><th>Repayment Method</th><th>Repayment Type</th><th>Repayment Amount</th><th>Transaction Serial No.</th><th>Collector</th></tr></thead>
+ <tbody>
+  <tr><td>2023-04-19 11:02:40</td><td>InPay</td><td>Partial Payment Overdue</td><td>10,000.00</td><td>I230419105522294386659172611037</td><td>AP-S2-21</td></tr>
+  <tr><td>2023-04-18 11:07:48</td><td>InPay</td><td>Partial Payment Overdue</td><td>19,000.00</td><td>I230418110132133868904445700098</td><td>AP-S2-21</td></tr>
+ </tbody>
+</table>
+</section>
+<div style="position:relative;height:60px;margin-top:-4px">
+ <div class="wm" style="top:6px">Go To Settings to activate Windows</div>
+ <div class="pg" style="top:12px"><span>Total 2 Record(s)</span><span class="b">&lt;</span><span class="b cur">1</span><span class="b">&gt;</span><span class="b sz">10 条/页 ⌄</span></div>
+</div>
+</div>
+<script>
+(function(){var b=document.getElementById('copyBtn');if(!b)return;b.addEventListener('click',function(){var t=b.getAttribute('data-link'),o='Click here to Copy';function ok(){b.textContent='Copied!';b.classList.add('done');setTimeout(function(){b.textContent=o;b.classList.remove('done')},1500)}function fb(){var a=document.createElement('textarea');a.value=t;a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}document.body.removeChild(a);ok()}try{navigator.clipboard.writeText(t).then(ok,fb)}catch(e){fb()}})})();
+(function(){var w=document.querySelector('.wrap');function fit(){var s=document.documentElement.clientWidth/1366;w.style.transform='scale('+s+')';document.body.style.height=Math.ceil(w.offsetHeight*s)+'px'}fit();window.addEventListener('resize',fit);window.addEventListener('orientationchange',fit);window.addEventListener('load',fit)})();
+</script>
+</body></html>

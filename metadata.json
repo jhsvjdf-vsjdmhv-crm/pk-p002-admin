@@ -1,0 +1,6 @@
+{
+  "name": "PK-P002 Admin Management System",
+  "description": "Professional loan collection and customer management admin console for Mast Loan (PK-P002).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
